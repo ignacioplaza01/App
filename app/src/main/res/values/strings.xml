@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">App</string>
+    <string name="detectar_pulso">Detectar pulso</string>
+    <string name="volver_medir">Volver a medir</string>
+    <string name="registrar_pulso">Registrar pulso</string>
+    <string name="historial">Historial</string>
+    <string name="registro_auto">Registrar pulso auto</string>
+    <string name="notificaciones">Notificaciones</string>
+    <string name="eliminar_histo">Eliminar historial</string>
+    <string name="establecer_hora">Establecer hora</string>
+    <string name="cantidad_registro">Cantidad de registros</string>
+    <string name="comenzar">Comenzar</string>
+    <string name="drawer_open">Abrir</string>
+    <string name="drawer_cerrado">Cerrado</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
