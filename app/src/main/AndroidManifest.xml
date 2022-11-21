@@ -13,7 +13,14 @@
         android:theme="@style/Theme.App"
         tools:targetApi="31">
         <activity
-            android:name=".noti"
+            android:name=".MostrarHistorial"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".actualizar_eliminar"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
