@@ -9,7 +9,15 @@
 
     <ListView
         android:id="@+id/listaHistorial"
-        android:layout_width="409dp"
-        android:layout_height="729dp" />
+        android:layout_width="match_parent"
+        android:layout_height="542dp"
+        android:background="#D82626" />
+
+    <Button
+        android:id="@+id/eliminar_Historial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Eliminar historial" />
+
 
 </LinearLayout>

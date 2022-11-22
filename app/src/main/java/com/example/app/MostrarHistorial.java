@@ -1,14 +1,19 @@
 package com.example.app;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.app.Modelo.Pulso;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +30,10 @@ public class MostrarHistorial extends AppCompatActivity {
     ListView listaHistorial;
     ArrayList<Pulso> pulsos;
     ArrayAdapter<Pulso> adaptadorPulsos;
+    Button eliminar_Historial;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +41,25 @@ public class MostrarHistorial extends AppCompatActivity {
         listaHistorial = (ListView) findViewById(R.id.listaHistorial);
         pulsos = new ArrayList<Pulso>();
         cargarBD();
+        eliminarHistorial();
     }
+    private void eliminarHistorial() {
+        eliminar_Historial = (Button) findViewById(R.id.eliminar_Historial);
+        eliminar_Historial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                database = FirebaseDatabase.getInstance();
+                DatabaseReference pulsosRef = database.getReference("Pulsos");
+                pulsosRef.removeValue();
+                Toast.makeText(MostrarHistorial.this, "Historial eliminado", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
+
+
 
     private void cargarBD() {
         database = FirebaseDatabase.getInstance();
@@ -52,19 +79,7 @@ public class MostrarHistorial extends AppCompatActivity {
                 }
                 adaptadorPulsos = new ArrayAdapter<Pulso>(getApplicationContext(), android.R.layout.simple_list_item_1,pulsos);
                 listaHistorial.setAdapter(adaptadorPulsos);
-                listaHistorial.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                        Pulso a = (Pulso) adapterView.getItemAtPosition(i);
-                        Intent intencion = new Intent(getApplicationContext(), actualizar_eliminar.class);
-                        Gson gson = new Gson();
-                        String Pulsos =gson.toJson(a);
-                        intencion.putExtra("Pulsos",Pulsos);
-
-                        startActivity(intencion);
-                    }
-                });
 
             }
 
@@ -76,6 +91,11 @@ public class MostrarHistorial extends AppCompatActivity {
         };
         pulsosRef.addValueEventListener(pulsosListener);
 
+
+
     }
+
+
+
 
 }

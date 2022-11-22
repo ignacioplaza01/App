@@ -16,13 +16,16 @@ public class Pulso {
         this.verFecha = verFecha;
     }
 
+
     @Override
     public String toString() {
-        return "Pulso{" +
-                "key='" + key + '\'' +
-                ", pulsoMin=" + pulsoMin +
-                ", pulsoMax=" + pulsoMax +
-                ", verFecha=" + verFecha +
-                '}';
+        return
+
+                " Pulso.Min=   " + pulsoMin + '\'' +
+                " Pulso.Max=   " + pulsoMax + '\'' +
+                " Fecha=   " + verFecha + '\''
+
+                ;
+
     }
 }

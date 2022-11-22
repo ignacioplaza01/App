@@ -11,4 +11,5 @@ public class Pag5 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pag5);
     }
+
 }

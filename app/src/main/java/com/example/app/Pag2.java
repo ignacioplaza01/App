@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class Pag2 extends AppCompatActivity {
     FirebaseDatabase database;
-    Button registrar_pulso,mostrar_historial;
+    Button registrar_pulso,mostrar_historial,eliminar_historial;
     EditText min,max,fecha;
 
     @Override
@@ -38,20 +38,23 @@ public class Pag2 extends AppCompatActivity {
             }
         });
         llamadoActivityMostrarFecha();
+
+
     }
     private void llamadoActivityMostrarFecha() {
-        mostrar_historial = (Button)findViewById(R.id.mostrar_historial);
+        mostrar_historial = (Button) findViewById(R.id.mostrar_historial);
         mostrar_historial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),MostrarHistorial.class);
+                Intent i = new Intent(getApplicationContext(), MostrarHistorial.class);
                 startActivity(i);
 
             }
         });
-
-
     }
+
+
+
     public void insertar() {
         String pulsoMin = min.getText().toString();
         String pulsoMax = max.getText().toString();
