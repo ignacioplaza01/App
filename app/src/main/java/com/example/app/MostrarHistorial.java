@@ -4,32 +4,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.app.Modelo.Pulso;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 public class MostrarHistorial extends AppCompatActivity {
-    FirebaseDatabase database;
+    DatabaseReference database;
     ListView listaHistorial;
-    ArrayList<Pulso> pulsos;
-    ArrayAdapter<Pulso> adaptadorPulsos;
+    ArrayList<Historial> historial ;
+    ArrayAdapter<Historial> adaptadorPulsos;
     Button eliminar_Historial;
 
 
@@ -39,7 +34,9 @@ public class MostrarHistorial extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mostrar_historial);
         listaHistorial = (ListView) findViewById(R.id.listaHistorial);
-        pulsos = new ArrayList<Pulso>();
+        historial = new ArrayList<>();
+
+
         cargarBD();
         eliminarHistorial();
     }
@@ -48,9 +45,9 @@ public class MostrarHistorial extends AppCompatActivity {
         eliminar_Historial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                database = FirebaseDatabase.getInstance();
-                DatabaseReference pulsosRef = database.getReference("Pulsos");
-                pulsosRef.removeValue();
+                database = FirebaseDatabase.getInstance().getReference("Historial");
+
+                database.removeValue();
                 Toast.makeText(MostrarHistorial.this, "Historial eliminado", Toast.LENGTH_SHORT).show();
 
             }
@@ -62,36 +59,31 @@ public class MostrarHistorial extends AppCompatActivity {
 
 
     private void cargarBD() {
-        database = FirebaseDatabase.getInstance();
-        DatabaseReference pulsosRef = database.getReference("Pulsos");
+        database = FirebaseDatabase.getInstance().getReference("Historial");
         ValueEventListener pulsosListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for (DataSnapshot d: snapshot.getChildren()) {
-                    String key = d.child("key").getValue().toString();
+                for (DataSnapshot d : snapshot.getChildren()) {
+
                     String pulsoMin = d.child("pulsoMin").getValue().toString();
                     String pulsoMax = d.child("pulsoMax").getValue().toString();
-                    String verFecha = d.child("verFecha").getValue().toString();
-                    Pulso a = new Pulso(key,pulsoMin,pulsoMax,verFecha);
-                    pulsos.add(a);
+
+                    Historial a = new Historial(pulsoMin, pulsoMax);
+                    historial.add(a);
 
                 }
-                adaptadorPulsos = new ArrayAdapter<Pulso>(getApplicationContext(), android.R.layout.simple_list_item_1,pulsos);
+                adaptadorPulsos = new ArrayAdapter<Historial>(getApplicationContext(), android.R.layout.simple_list_item_1, historial);
                 listaHistorial.setAdapter(adaptadorPulsos);
-
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 System.out.println("Un error");
-
             }
         };
-        pulsosRef.addValueEventListener(pulsosListener);
 
-
+        database.addValueEventListener(pulsosListener);
 
     }
 

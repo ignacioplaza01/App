@@ -102,10 +102,9 @@
         app:layout_constraintVertical_bias="0.342" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/pulso1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="060"
         android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,10 +114,9 @@
         app:layout_constraintVertical_bias="0.396" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/pulso2"
         android:layout_width="58dp"
         android:layout_height="45dp"
-        android:text="100"
         android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -126,32 +124,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.402" />
-
-    <EditText
-        android:id="@+id/min"
-        android:layout_width="96dp"
-        android:layout_height="47dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.184"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.459" />
-
-    <EditText
-        android:id="@+id/max"
-        android:layout_width="113dp"
-        android:layout_height="42dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.919"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.462" />
 
     <Button
         android:id="@+id/mostrar_historial"
@@ -164,18 +136,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/include"
         app:layout_constraintVertical_bias="0.947" />
-
-    <EditText
-        android:id="@+id/fecha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.591" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

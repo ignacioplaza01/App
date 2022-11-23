@@ -1,38 +1,61 @@
 package com.example.app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.app.Modelo.Pulso;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.UUID;
 
 public class Pag2 extends AppCompatActivity {
-    FirebaseDatabase database;
-    Button registrar_pulso,mostrar_historial,eliminar_historial;
-    EditText min,max,fecha;
+    DatabaseReference database;
+    Button mostrar_historial,registrar_pulso;
+    TextView pulso1,pulso2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pag2);
 
-        min = (EditText) findViewById(R.id.min);
-        max = (EditText) findViewById(R.id.max);
-        fecha = (EditText) findViewById(R.id.fecha);
+        pulso1 = (TextView) findViewById(R.id.pulso1);
+        pulso2 = (TextView) findViewById(R.id.pulso2);
+
+        database = FirebaseDatabase.getInstance().getReference();
+        database.child("Detector").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.exists()) {
+
+                    String pulsoMinimo = snapshot.child("PulsoMin").getValue().toString();
+                    String pulsoMaximo = snapshot.child("PulsoMax").getValue().toString();
+                    pulso1.setText(pulsoMinimo);
+                    pulso2.setText(pulsoMaximo);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         registrar_pulso = (Button) findViewById(R.id.registrar_pulso);
         registrar_pulso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Pag2.this, "si", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Pag2.this, "Pulso Registrado", Toast.LENGTH_SHORT).show();
                 insertar();
 
             }
@@ -56,15 +79,16 @@ public class Pag2 extends AppCompatActivity {
 
 
     public void insertar() {
-        String pulsoMin = min.getText().toString();
-        String pulsoMax = max.getText().toString();
-        String verFecha = fecha.getText().toString();
         String key = UUID.randomUUID().toString();
-        Pulso a = new Pulso(key,pulsoMin,pulsoMax,verFecha);
+        String pulsoMin = pulso1.getText().toString();
+        String pulsoMax = pulso2.getText().toString();
 
-        database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Pulsos");
-        myRef.child(key).setValue(a);
+
+        Historial a = new Historial(pulsoMin,pulsoMax);
+
+
+        database = FirebaseDatabase.getInstance().getReference("Historial");
+        database.child(key).setValue(a);
 
     }
 
